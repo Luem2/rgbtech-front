@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -12,13 +12,35 @@ import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
+import AboutTeam from "./pages/AboutTeam";
 
 function App() {
+
+// function handleCallbackResponse(response){
+// 		console.log("Encoded JWT ID token:"+response.credential);
+// 	var userObject = jwt_decode(response.credential)
+// 	console.log(userObject)
+// 	document.getElementById("signInDiv").hidden = true;
+// 	}
+
+// 	useEffect(()=>{
+// 		/*global google*/
+// 		google.accounts.id.initialize({
+// 		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
+// 		   callback:handleCallbackResponse})
+// 		   google.accounts.id.renderButton(
+// 			document.getElementById("signInDiv"),
+// 			{ theme: "outline", size: "large"}
+		      
+// 		);
+// 	   },[]);
+
 	return (
 		<>
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/about" element={<AboutTeam />} />
 					<Route path="/products" element={<AllProductsD2 />} />
 					{/* <Route path="/filtersandproducts" element={<FiltersAndAllproducts/>} /> */}
 					<Route path="/admin" element={<DashBoardAdmin />} />
