@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -12,29 +12,15 @@ import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
+import PaymentAcepted from "./components/Paypal/PaymentAcepted";
 import AboutTeam from "./pages/AboutTeam";
-
+import ModalHome from "./components/ModalHome";
+import PaymentCanceled from "./components/Paypal/PaymentCanceled";
+import UpdateProduct from "./components/DashBoardAdmin/UpdateProduct";
+import RecoverPassword from "./pages/RecoverPassword";
+import AwardsSection from "./pages/Profile/AwardsSection";
+import RecoverPasswordForm from "./components/RecoverPasswordForm";
 function App() {
-
-// function handleCallbackResponse(response){
-// 		console.log("Encoded JWT ID token:"+response.credential);
-// 	var userObject = jwt_decode(response.credential)
-// 	console.log(userObject)
-// 	document.getElementById("signInDiv").hidden = true;
-// 	}
-
-// 	useEffect(()=>{
-// 		/*global google*/
-// 		google.accounts.id.initialize({
-// 		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
-// 		   callback:handleCallbackResponse})
-// 		   google.accounts.id.renderButton(
-// 			document.getElementById("signInDiv"),
-// 			{ theme: "outline", size: "large"}
-		      
-// 		);
-// 	   },[]);
-
 	return (
 		<>
 			<Router>
@@ -44,6 +30,9 @@ function App() {
 					<Route path="/products" element={<AllProductsD2 />} />
 					{/* <Route path="/filtersandproducts" element={<FiltersAndAllproducts/>} /> */}
 					<Route path="/admin" element={<DashBoardAdmin />} />
+					<Route path="/admin/update" element={<UpdateProduct />} />
+					<Route path="/awards" element={<AwardsSection />} />
+					<Route path="/recoverpassword" element={<RecoverPasswordForm />} />
 					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
 					<Route path="/filters" element={<Filters />} />
@@ -52,6 +41,10 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="recoverPassword/:token" element={<RecoverPassword/>}/>
+					<Route path="/order-successfully" element={<PaymentAcepted />} />
+					<Route path="/order-canceled" element={<PaymentCanceled />} />
+					<Route path="/modalhome" element={<ModalHome />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

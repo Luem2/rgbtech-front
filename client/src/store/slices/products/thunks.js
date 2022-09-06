@@ -15,8 +15,8 @@ export const searchNameAction = (input) => {
 		try {
 			const products = await axios.get(`products/name-list?name=${input}`);
 			dispatch(searchName(products.data));
-		} catch (e) {
-			console.error(e);
+		} catch (error) {
+			console.error(error);
 		}
 	};
 };
@@ -27,7 +27,7 @@ export const searchTagAction = (input) => {
 			const products = await axios.get(`products?tag=${input}`);
 			dispatch(getProductsFilters(products.data));
 			console.log(products);
-		} catch (e) {
+		} catch (error) {
 			console.error(e);
 		}
 	};
@@ -41,20 +41,18 @@ export const getAllProducts = (num, search) => {
 	}
 	return async (dispatch) => {
 		try {
-			if(search.includes('pageNumber')){
-				console.log(search.slice(0, search.length -1),'dispatch con page')
+			if (search.includes("pageNumber")) {
+				console.log(search.slice(0, search.length - 1), "dispatch con page");
 				const products = await axios.get(
-					`products${search.slice(0, search.length -1)}`
+					`products${search.slice(0, search.length - 1)}`
 				);
 				dispatch(getProducts(products.data));
 			} else {
-				console.log('dispatch con sin page')
 				const products = await axios.get(
 					`products${search}pageNumber=${num || 1}`
 				);
 				dispatch(getProducts(products.data));
 			}
-
 		} catch (e) {
 			console.error(e);
 		}
