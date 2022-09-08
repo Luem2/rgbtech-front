@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import Footer from "../components/Footer";
 import Header from "../components/Header/Header";
 import FavoriteCard from "../components/TarjetaFav";
 import { MdFavorite} from 'react-icons/md';
@@ -28,7 +27,7 @@ const Favorites = () => {
 	return (
 		<div>
 			<Header />
-			<div className="flex justify-around  items-center rounded-3xl text-white ">
+			<div className="flex justify-around items-center rounded-3xl text-white shadow-2xl mx-20">
 				<div className="flex flex-col justify-center items-center rounded-3xl  p-4 text-xl text-black">
 					<h1 className="flex gap-2 text-4xl">
 						<MdFavorite/>
@@ -49,6 +48,9 @@ const Favorites = () => {
 								name= {item.name}
 								img={item.img}
 								price= {item.price}
+								onDiscount={item.onDiscount}
+								freeShipping={item.freeShipping}
+								discountPercentage={item.discountPercentage}
 								/>
 							)
 						})
@@ -56,7 +58,6 @@ const Favorites = () => {
 				</div>
 				</div>
 			</div>
-			<Footer/>
 		</div>
 	);
 };

@@ -13,6 +13,7 @@ import defaultImage from "../../assets/defaultImage.png";
 import { hasJWT } from "../../store/thunks";
 import { youAreUnloggedFavorites } from "../Notifications";
 import Toogle from "./Toogle";
+import { useEffect } from "react";
 
 const UserSection = () => {
 	const navigate = useNavigate();
@@ -39,6 +40,7 @@ const UserSection = () => {
 					<Login closeModal={() => setLogin(false)} />
 				</Modal>
 			)}
+			<Toogle />
 			<IconContext.Provider
 				value={{
 					className: "bg-pink-500 rounded-3xl py-0.5 p-1 cursor-pointer",
@@ -46,31 +48,25 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				{/* user && Boolean(Object.keys(user).length) */}
 				{userProfile && Object.keys(userProfile).length ? (
-					<img
-						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-105 ease-in duration-300"
-						src={
-							userProfile?.profilePhoto === null
-								? defaultImage
-								: userProfile?.profilePhoto
-						}
-						alt=""
-						onClick={() => navigate("/profile")}
-					/>
+					<div className="bg-pink-500 rounded-full">
+						<img
+							className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-105 ease-in duration-300"
+							src={
+								userProfile?.profilePhoto === null
+									? defaultImage
+									: userProfile?.profilePhoto
+							}
+							alt=""
+							onClick={() => navigate("/profile")}
+						/>
+					</div>
 				) : (
 					<AiOutlineUser
 						className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
 						onClick={() => setLogin(true)}
 					/>
 				)}
-
-				<AiOutlineHeart
-					className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
-					onClick={() => {
-						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
-					}}
-				/>
 
 				<div>
 					{cart?.length > 0 && (
@@ -87,8 +83,13 @@ const UserSection = () => {
 						}}
 					/>
 				</div>
+				<AiOutlineHeart
+					className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
+					onClick={() => {
+						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
+					}}
+				/>
 			</IconContext.Provider>
-			<Toogle />
 		</div>
 	);
 };
