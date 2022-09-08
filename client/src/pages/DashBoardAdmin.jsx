@@ -1,43 +1,54 @@
-import React, { useRef, useState } from "react";
-import HeaderAdmin from "../components/DashBoardAdmin/HeaderAdmin";
-import LeftSizeAdmin from "../components/DashBoardAdmin/LeftSizeAdmin";
-import ProductsAdmin from "../components/DashBoardAdmin/ProductsAdmin";
-import RightSizeAdmin from "../components/DashBoardAdmin/RightSizeAdmin";
-import SideNavAdmin from "../components/DashBoardAdmin/SideNavAdmin";
-import TagsAndBrands from "../components/DashBoardAdmin/TagsAndBrands";
-import Users from "../components/DashBoardAdmin/Users";
-import EditTagsBrands from "../components/DashBoardAdmin/EditTagsBrands"
-import UpdateProduct from "../components/DashBoardAdmin/UpdateProduct"
-import AddProduct from "../components/DashBoardAdmin/AddProduct"
+import React, { useRef, useState } from 'react';
+import HeaderAdmin from '../components/DashBoardAdmin/HeaderAdmin';
+import LeftSizeAdmin from '../components/DashBoardAdmin/LeftSizeAdmin';
+import ProductsAdmin from '../components/DashBoardAdmin/ProductsAdmin';
+import RightSizeAdmin from '../components/DashBoardAdmin/RightSizeAdmin';
+import SideNavAdmin from '../components/DashBoardAdmin/SideNavAdmin';
+import TagsAndBrands from '../components/DashBoardAdmin/TagsAndBrands';
+import Users from '../components/DashBoardAdmin/Users';
+import EditTagsBrands from '../components/DashBoardAdmin/EditTagsBrands';
+import UpdateProduct from '../components/DashBoardAdmin/UpdateProduct';
+import AddProduct from '../components/DashBoardAdmin/AddProduct';
+import { hasJWT } from '../store/thunks';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 //import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, BarChart, ResponsiveContainer, PieChart, Pie} from 'recharts';
 
 function DashBoardAdmin() {
-	const [selection, setSelection] = useState("loading");
+  const navigate = useNavigate();
+  const { user } = useSelector(state => state.user);
+  const [selection, setSelection] = useState('loading');
 
-	return (
-		<div className="bg-white">
-			<HeaderAdmin />
-			<div className="w-full min-h-[90vh] grid grid-cols-12">
-				<SideNavAdmin selection={setSelection} />
-				<div className="grid grid-cols-1 xl:grid-cols-5 col-span-10 w-full">
-					{selection === "loading" ? <h1>Select some OPTION</h1> : null}
-					{selection === "Dashboard" ? (
-						<>
-							<LeftSizeAdmin />
-							<RightSizeAdmin />
-						</>
-					) : null}
-					{selection === "Users" ? <Users /> : null}
-					{selection === "Products" ? <ProductsAdmin /> : null}
-					{selection === "tags-brands" ? <TagsAndBrands /> : null}
-					{selection === "EditProduct" ? <UpdateProduct /> : null}
-					{selection === "EditTags/Brands" ? <EditTagsBrands /> : null}
-					{selection === "AddProduct" ? <AddProduct /> : null}
-				</div>
-			</div>
-		</div>
-	);
+  useEffect(() => {
+    hasJWT() ? null : navigate('/');
+    user.isAdmin ? null : navigate('/');
+  }, []);
+
+  return (
+    <div className='bg-white'>
+      <HeaderAdmin />
+      <div className='w-full min-h-[90vh] grid grid-cols-12'>
+        <SideNavAdmin selection={setSelection} />
+        <div className='grid grid-cols-1 xl:grid-cols-5 col-span-10 w-full'>
+          {selection === 'loading' ? <h1>Select some OPTION</h1> : null}
+          {selection === 'Dashboard' ? (
+            <>
+              <LeftSizeAdmin />
+              <RightSizeAdmin />
+            </>
+          ) : null}
+          {selection === 'Users' ? <Users /> : null}
+          {selection === 'Products' ? <ProductsAdmin /> : null}
+          {selection === 'tags-brands' ? <TagsAndBrands /> : null}
+          {selection === 'EditProduct' ? <UpdateProduct /> : null}
+          {selection === 'EditTags/Brands' ? <EditTagsBrands /> : null}
+          {selection === 'AddProduct' ? <AddProduct /> : null}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default DashBoardAdmin;
