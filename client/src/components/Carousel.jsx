@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../assets/logo-dibujo2.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,7 +6,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
 const imagnaryProducts = [
-	logo,
+	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662753103/RGBtech/TagLogo/logo_alta_calidad_kzclqs.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662562002/RGBtech/ImageProduct/ps5_gv7pog.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662576325/RGBtech/ImageProduct/img_5_qy9lcv.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662555612/RGBtech/ImageProduct/img_1_u2c0bb.png",
