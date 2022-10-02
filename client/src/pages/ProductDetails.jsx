@@ -182,7 +182,6 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-								{console.log(FavoriteProduct?.includes(id))}
 								{FavoriteProduct?.includes(id) ? (
 									<SquareButton
 										className="flex gap-2 items-center active:bg-blue-800 focus:bg-blue-700 hover:bg-blue-700 bg-blue-600"
