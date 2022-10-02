@@ -3,8 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	cart: [],
 	buying: false,
-	loadingComment: false,
-	modalComment: false,
 };
 
 const guestShoppingCartSlice = createSlice({
@@ -43,14 +41,6 @@ const guestShoppingCartSlice = createSlice({
 		setBuying: (state, action) => {
 			state.buying = action.payload;
 		},
-
-		setLoadingComment: (state, action) => {
-			state.loadingComment = action.payload;
-		},
-
-		setModalComment: (state, action) => {
-			state.modalComment = action.payload;
-		},
 	},
 });
 
@@ -61,8 +51,6 @@ export const {
 	emptyCart,
 	delProduct,
 	setBuying,
-	setLoadingComment,
-	setModalComment,
 } = guestShoppingCartSlice.actions;
 
 export default guestShoppingCartSlice.reducer;

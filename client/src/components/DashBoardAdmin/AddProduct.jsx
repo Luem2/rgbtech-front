@@ -1,42 +1,26 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	productsAction,
-	editProductAction,
-	tagsAndBrandsAction,
-} from "../../store/slices/admin/thunk";
+import { productsAction, editProductAction } from "../../store/slices/admin/thunk";
 
-export default function AddPoduct() {
-	const [form, setForm] = useState({ tag: [] });
-	const { tagsAndBrands } = useSelector((state) => state.admin);
 
+export default function UpdateProduct() {
+	const [form, setForm] = useState({});
+	const [specificationsInput, setSpecificationsInput] = useState([]);
+	const { products } = useSelector((state) => state.admin);
 	const dispatch = useDispatch();
 
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-
-		if (name === "tag" && form.tag?.length >= 4) {
-			return null;
-		} else if (name === "tag") {
-			if (form.tag?.includes(value)) return null;
-			setForm({
-				...form,
-				[name]: [...form?.tag, value],
-			});
-		}
-	};
-
-	const handleDelete = (event) => {
-		const tag = form.tag.filter((tag) => {
-			console.log("TAG", tag);
-			return tag !== event.target.value;
-		});
-		return setForm({
-			...form,
-			tag,
-		});
-	};
+	// const handleSelect = (e) => {
+	// 	setSpecificationsInput([]);
+	// 	const { value } = e.target;
+	// 	const product = products.find((element) => element.id === value);
+	// 	setForm(product);
+	// 	const specifications = product.specifications[0];
+	// 	const inputs = [];
+	// 	for (const property in specifications) {
+	// 		inputs.push({ title: property, description: specifications[property] });
+	// 	}
+	// 	setSpecificationsInput(inputs);
+	// };
 
 	const handleOnChange = (e) => {
 		if (e.target.value === "placeholder") return;
@@ -47,30 +31,10 @@ export default function AddPoduct() {
 	};
 
 	const handleOnSubmit = (e) => {
+		console.log(form);
 		e.preventDefault();
-		const tagsID = tagsAndBrands.tags
-			.filter((tag) => {
-				return form.tag.includes(tag.name);
-			})
-			.map((tag) => {
-				return tag.id;
-			});
-		const product = {
-			name: form.name,
-			price: form.price,
-			description: form.description,
-			img: form.img,
-			stock: form.stock,
-			onDiscount: form.onDiscount,
-			discountPercentage: form.discountPercentage || 0,
-			freeShipping: form.freeShipping,
-			brand: form.brand,
-			tags: tagsID,
-		};
-		axios
-			.post("/products", product)
-			.then((response) => setForm({ tag: [] }))
-			.catch((error) => console.log(error));
+		dispatch(editProductAction(form));
+		setForm({});
 	};
 
 	useEffect(() => {
@@ -78,9 +42,6 @@ export default function AddPoduct() {
 	}, [form]);
 	useEffect(() => {
 		dispatch(productsAction());
-	}, []);
-	useEffect(() => {
-		dispatch(tagsAndBrandsAction());
 	}, []);
 
 	return (
@@ -111,8 +72,8 @@ export default function AddPoduct() {
 										className="pl-2 w-full outline-none border-none"
 										name="price"
 										onChange={(e) =>
-											setForm({ ...form, price: e.target.value })
-										}
+										setForm({ ...form, price: e.target.value })
+										 }
 										type="number"
 										value={form.price}
 										placeholder="Add price"
@@ -127,13 +88,14 @@ export default function AddPoduct() {
 										name="description"
 										value={form.description}
 										onChange={(e) =>
-											setForm({ ...form, description: e.target.value })
+										setForm({ ...form, description: e.target.value })
 										}
 										placeholder="Add description"
 									></textarea>
 								</div>
 								<label> Image </label>
 								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl">
+									
 									<input
 										className=" pl-2 w-full outline-none border-none"
 										name="img"
@@ -142,6 +104,7 @@ export default function AddPoduct() {
 										onChange={(e) => setForm({ ...form, img: e.target.value })}
 										placeholder="Add image"
 									/>
+									
 								</div>
 								<label>Stock</label>
 								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
@@ -151,12 +114,12 @@ export default function AddPoduct() {
 										name="stock"
 										value={form.stock}
 										onChange={(e) =>
-											setForm({ ...form, stock: e.target.value })
+										setForm({ ...form, stock: e.target.value })
 										}
 										placeholder="Add stock"
 									/>
 								</div>
-
+								
 								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
 									<select name="onDiscount" onChange={handleOnChange}>
 										<option value="placeholder">On Discount?</option>
@@ -172,7 +135,7 @@ export default function AddPoduct() {
 											name="discountPercentage"
 											value={form.discountPercentage}
 											onChange={(e) =>
-												setForm({ ...form, discountPercentage: e.target.value })
+											setForm({ ...form, discountPercentage: e.target.value })
 											}
 											placeholder={form.discountPercentage}
 										/>
@@ -186,34 +149,21 @@ export default function AddPoduct() {
 										<option value={true}>Yes</option>
 									</select>
 								</div>
-								<label> Tags </label>
-								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
-									<select name="tag" onChange={handleChange}>
-										{tagsAndBrands?.tags?.map((ta) => (
-											<option value={ta.name}>{ta.name} </option>
-										))}
-									</select>
-								</div>
-								<div className="grid m-3">
-									{form.tag?.map((el) => (
-										<button
-											type="button"
-											value={el}
-											onClick={handleDelete}
-											className="border-2 my-2 hover:bg-red-500 hover:text-white"
-										>
-											{el}
-										</button>
-									))}
-								</div>
-								<label> Brands </label>
-								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
-									<select name="brand" onChange={handleOnChange}>
-										{tagsAndBrands?.brands?.map((bra) => (
-											<option value={bra.id}>{bra.name}</option>
-										))}
-									</select>
-								</div>
+								{/* <label>Specifications</label>
+							<div>
+								{
+									specificationsInput?.map((specification, index) => {
+										return (
+										<div key={index} className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
+											<input type='text' placeholder={specification.title} value={specification.title}></input>
+											<input type='text' placeholder={specification.description} value={specification.description}></input>
+										</div>
+										)
+									})
+								}
+							</div>
+							<input type="button" onClick={() => setSpecificationsInput([...specificationsInput, {title:'', description:''}])} />
+							 */}
 							</div>
 							<button
 								type="submit"

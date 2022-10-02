@@ -44,6 +44,7 @@ function LoguinGoogle({ closeModal }) {
 				if (cart.length) {
 					dispatch(setCartShop(carts));
 				}
+				console.log("adsa");
 				dispatch(getUserProfile(user.id));
 				let product = user.cartShop;
 				// for (let i = 0; i < product.length; i++) {dispatch(addProduct(product[i]))}
@@ -107,7 +108,7 @@ function LoguinGoogle({ closeModal }) {
 		/*global google*/
 		google.accounts.id.initialize({
 			client_id:
-				"319669614492-8uf24oeb7gbr3lf3nvutbcjjctgqg8l2.apps.googleusercontent.com",
+				"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
 			callback: handleCallbackResponse,
 		});
 		google.accounts.id.renderButton(document.getElementById("signInDiv"), {

@@ -1,95 +1,78 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Autoplay, Pagination } from 'swiper';
-import Comment from './Comment.jsx';
-import defaultImg from '../assets/defaultImage.png';
-import { ImGift } from 'react-icons/im';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import {Autoplay, Pagination, Navigation } from "swiper";
+import Comment from "./Comment.jsx";
 
 const testComments = [
-  {
-    id: 1,
-    rating: 4.3,
-    profilePhoto:
-      'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
-    user: 'Pablo',
-    comment: 'tienen que mejorar',
-  },
-  {
-    id: 2,
-    rating: 3.4,
-    profilePhoto:
-      'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
-    user: 'Carlos',
-    comment: 'Muy bonito me parecio todo',
-  },
-  {
-    id: 3,
-    rating: 5,
-    profilePhoto:
-      'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
-    user: 'Luis',
-    comment: 'Que buen pf',
-  },
-  {
-    id: 4,
-    rating: 1,
-    profilePhoto:
-      'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
-    user: 'Marciana',
-    comment: 'Inolvidable',
-  },
-];
+    	{
+            id: 1,
+    		rating: 4.3,
+    		profilePhoto:
+    			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
+    		user: "Pablo",
+    		comment: "tienen que mejorar",
+    	},
+    	{
+            id: 2,
+    		rating: 3.4,
+    		profilePhoto:
+    			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
+    		user: "Carlos",
+    		comment: "Muy bonito me parecio todo",
+    	},
+    	{
+            id: 3,
+    		rating: 5,
+    		profilePhoto:
+    			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
+    		user: "Luis",
+    		comment: "Que buen pf",
+    	},
+    	{
+            id: 4,
+    		rating: 1,
+    		profilePhoto:
+    			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
+    		user: "Marciana",
+    		comment: "Inolvidable",
+    	},
+    ];
 
-function CarruselComments({ comments }) {
-  return (
-    <div className=''>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={0}
-        loop={true}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay, Pagination]}
-      >
-        <div className=''>
-          {/* {testComments.map((c, i) => (
-						<SwiperSlide key={i}>
-							<Comment
-								user={c.user}
-								profilePhoto={c.profilePhoto}
-								comment={c.comment}
-								rating={c.rating}
-							></Comment>
-						</SwiperSlide>
-					))} */}
-          {comments.length ? (
-            comments.map((c, i) => (
-              <SwiperSlide key={i}>
-                <Comment
-                  user={c.user}
-                  profilePhoto={c.profilePhoto ? c.profilePhoto : defaultImg}
-                  comment={c.comment}
-                  rating={c.rating}
-                ></Comment>
-              </SwiperSlide>
-            ))
-          ) : (
-            <h1 className='text-2xl font-bold mt-3 mb-2'>
-              This product has not comments.
-            </h1>
-          )}
-        </div>
-      </Swiper>
-    </div>
-  );
+function CarruselComments({comments}) {
+	return (
+		<div className="">
+			<Swiper
+				slidesPerView={3}
+				spaceBetween={-20}
+				loop={true}
+				navigation={true}
+				pagination={{
+					clickable: true,
+				}}
+                autoplay={{
+					delay: 4000,
+					disableOnInteraction: false,
+				}}
+				modules={[Autoplay, Pagination, Navigation]}
+			>
+				<div className="">
+                {comments.map((c, i) => (
+									<SwiperSlide key={i}>
+										<Comment
+											user={c.user}
+											profilePhoto={c.profilePhoto}
+                                            comment={c.comment}
+                                            rating={c.rating}
+										></Comment>
+									</SwiperSlide>
+						))}
+				</div>
+			</Swiper>
+		</div>
+	);
 }
 
 export default CarruselComments;
@@ -168,6 +151,17 @@ export default CarruselComments;
 
 // export default Carousel;
 
+
+
+
+
+
+
+
+
+
+
+
 // import React from "react";
 
 // import { Swiper, SwiperSlide } from "swiper/react";
@@ -213,6 +207,7 @@ export default CarruselComments;
 // ];
 
 // const CarruselComments = () => {
+
 
 // 	return (
 // 		<div className="bg-gray-200 rounded-3xl mb-10">

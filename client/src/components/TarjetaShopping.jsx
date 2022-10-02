@@ -4,11 +4,6 @@ import loadingGif from "../assets/loading.gif";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 import { successNotification } from "./Notifications";
-import {
-	setLoadingComment,
-	setModalComment,
-} from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function TarjetaShopping({
 	id,
@@ -21,19 +16,12 @@ export default function TarjetaShopping({
 	amount,
 	commented,
 }) {
-	const dispatch = useDispatch();
 	const [input, setInput] = useState({
-		rating: 1,
+		rating: 0,
 		comment: "",
 	});
-
-	const { loadingComment, modalComment } = useSelector(
-		(state) => state.guestShoppingCart
-	);
-
-	const setModalCommentTrue = () => {
-		dispatch(setModalComment(true));
-	};
+	const [modal, setModal] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		setInput({
@@ -44,26 +32,25 @@ export default function TarjetaShopping({
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(setLoadingComment(true));
+		setLoading(true);
 		axios
 			.put("sales/comments", { id, post: { ...input, user, profilePhoto } })
-			.then((response) => {
-				// console.log("estoy entrando", response);
-				// dispatch(setLoadingComment(false));
-				// dispatch(setModalComment(false));
+			.then(() => {
+				setLoading(false);
+				setModal(false);
 				successNotification("The comment has been sent correctly!");
 			})
 			.catch((error) => {
-				// dispatch(setLoadingComment(false));
+				setLoading(false);
 				console.error(error);
 			});
 	};
 
 	return (
-		<div class="lg:flex shadow rounded-lg border border-gray-400">
-			{modalComment && (
+		<dikv class="flex rounded-lg border border-gray-400">
+			{modal && (
 				<Modal
-					closeModalRedux={() => setModalComment(false)}
+					closeModal={() => setModal(false)}
 					tailwindCSS={"bg-[#a156f6] bg-opacity-100"}
 				>
 					<div className="flex flex-col gap-3 text-white font-bold overflow-auto h-80">
@@ -74,8 +61,6 @@ export default function TarjetaShopping({
 							<input
 								name="rating"
 								type="number"
-								min={1}
-								max={5}
 								className="ml-2 rounded-xl text-black p-1 mx-4"
 								value={input.rating}
 								required
@@ -90,9 +75,8 @@ export default function TarjetaShopping({
 									type="text"
 									className="ml-2 rounded-xl text-black p-1 mx-4"
 									cols="30"
-									rows="8"
+									rows="10"
 									value={input.comment}
-									required
 									onChange={(e) => handleChange(e)}
 								></textarea>
 							</div>
@@ -101,11 +85,11 @@ export default function TarjetaShopping({
 									type="submit"
 									className="flex w-fit gap-2 items-center px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
 								>
-									{/* {loadingComment ? (
+									{loading ? (
 										<img className="h-4 w-4" src={loadingGif} alt="loading" />
-									) : ( */}
-									<FaCheckCircle className="h-5 w-5" />
-									{/* )} */}
+									) : (
+										<FaCheckCircle className="h-5 w-5" />
+									)}
 									Submit
 								</button>
 							</div>
@@ -113,8 +97,8 @@ export default function TarjetaShopping({
 					</div>
 				</Modal>
 			)}
-			<div class="bg-blue-600 rounded-lg  py-4 block h-full shadow-inner">
-				<div class="text-center h-20 w-20">
+			<div class="bg-blue-600 rounded-sm py-4 block h-full shadow-inner">
+				<div class="text-center h-28 w-20">
 					<div class="text-white font-bold text-4xl">{month}</div>
 					<div class="text-white font-normal text-2xl">{year}</div>
 				</div>
@@ -148,13 +132,13 @@ export default function TarjetaShopping({
 				<div className="bg-white">
 					<button
 						className="bg-pink-600 hover:scale-105 font-semibold rounded-b-lg text-base text-white "
-						onClick={setModalCommentTrue}
+						onClick={() => setModal(true)}
 					>
 						Product Review
 					</button>
 				</div>
 			)}
-		</div>
+		</dikv>
 	);
 }
 

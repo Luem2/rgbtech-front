@@ -1,6 +1,7 @@
-import { ImQuotesRight } from 'react-icons/im';
+import React from 'react'
+import { ImQuotesRight} from 'react-icons/im';
 
-const Comment = ({ rating, profilePhoto, user, comment }) => {
+const Comment = ({rating, profilePhoto, user, comment}) => {
   return (
     <div className='grid palce-items-center'>
       <div className='grid grid-cols-1 p-10 gap-10 '>
@@ -9,15 +10,15 @@ const Comment = ({ rating, profilePhoto, user, comment }) => {
             <div className='mb-5 text-black items-center text-2xl font-bold  w-12'>
               <p>{rating}</p>
             </div>
-            <p className=' text-lg text-black'>{comment}</p>
+            <p className=' text-lg text-black'>
+              {comment}
+            </p>
           </blockquote>
-          <div
-            className='flex items-center justify-between px-8 py-1 bg-gradient-to-br from-fuchsia-500
-          to-pink-500'
-          >
+          <div className='flex items-center justify-between px-8 py-1 bg-gradient-to-br from-fuchsia-500
+          to-pink-500'>
             <div className='flex items-center gap-5'>
               <div className='rounded-full border-4 w-14 h-14 border-white'>
-                <img className='rounded-full' src={profilePhoto} alt='user' />
+                <img className='rounded-full' src={profilePhoto} alt="user" />
               </div>
               <figcaption className='text-white font-semibold text-2xl'>
                 <div>{user}</div>
@@ -25,12 +26,12 @@ const Comment = ({ rating, profilePhoto, user, comment }) => {
               </figcaption>
             </div>
             <div className='text-2xl '>
-              <ImQuotesRight />
+              <ImQuotesRight/>
             </div>
           </div>
         </figure>
       </div>
     </div>
-  );
-};
-export default Comment;
+  )
+}
+export default Comment
