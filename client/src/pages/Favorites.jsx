@@ -32,7 +32,9 @@ const Favorites = () => {
           </h1>
           <div className='flex flex-col gap-4 mt-2'>
             {products?.length === 0 && (
-              <h2 className='text-2xl mt-6'>Your favorites its empty! 😥</h2>
+              <h2 className='text-2xl mt-6 dark:text-white'>
+                Your favorites its empty! 😥
+              </h2>
             )}
           </div>
           <div className='h-screen overflow-scroll'>

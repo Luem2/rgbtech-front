@@ -113,7 +113,7 @@ export default function Filters({ setPage, page }) {
             </div>
           </div>
           <div className='mt-4 mb-1 text-xl dark:text-white'>
-            <label>Filtra Precio:</label>
+            <label> Price Filter:</label>
           </div>
           <div className='flex flex-end dark:bg-gray-400 rounded-lg items-center'>
             <input
@@ -124,7 +124,7 @@ export default function Filters({ setPage, page }) {
             <RiMoneyDollarCircleLine size={26} />
           </div>
           <div className='mt-4 '>
-            <h1 className=' mb-1 text-xl dark:text-white'>Orden productos:</h1>
+            <h1 className=' mb-1 text-xl dark:text-white'>Products Sort:</h1>
             <div>
               <select
                 className='h-24 w-44 cursor-pointer dark:bg-gray-400 rounded-lg'
@@ -136,25 +136,25 @@ export default function Filters({ setPage, page }) {
                   className='hover:text-blue-400 hover:font-bold'
                   value='price&order=ASC'
                 >
-                  Precio ascendente
+                  Ascending Price
                 </option>
                 <option
                   className='hover:text-pink-400 hover:font-bold'
                   value='price&order=DESC'
                 >
-                  Precio descendente
+                  Descending Price
                 </option>
                 <option
                   className='hover:text-blue-400 hover:font-bold'
                   value='=rating&order=ASC'
                 >
-                  Rating ascendente
+                  Ascending Rating
                 </option>
                 <option
                   className='hover:text-pink-400 hover:font-bold'
                   value='=rating&order=DESC'
                 >
-                  Rating descendente
+                  Descending Rating
                 </option>
               </select>
             </div>
@@ -164,7 +164,7 @@ export default function Filters({ setPage, page }) {
           className='mt-4 ml-14 mb-4 bg-transparent hover:bg-blue-200 text-pink-700 font-semibold hover:text-white py-1 px-4 border border-pink-500 hover:border-transparent rounded dark:hover:bg-pink-300'
           onClick={handleSubmit}
         >
-          Filtrar
+          Filter
         </button>
         <br />
       </form>
